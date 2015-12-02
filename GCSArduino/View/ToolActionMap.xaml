@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="GCSArduino.View.ToolActionMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"  DataContext="{Binding Source={StaticResource Locator}, Path=ToolActionMapViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="LayoutRoot" Visibility="{Binding VisibilityView}" >
+        <Border x:Name="tool1" Margin="0,0.001,0,-0.001" Background="#FF202F36" CornerRadius="1">
+           
+        </Border>
+    </Grid>
+</UserControl>

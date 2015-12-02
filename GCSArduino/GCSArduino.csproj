@@ -1,0 +1,620 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7DA29BD5-B0C7-423D-9F83-4AE62559193F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GCSArduino</RootNamespace>
+    <AssemblyName>GCSArduino</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ESRI.ArcGIS.Client, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Bing, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.Bing.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Local, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.Local.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Portal, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.Portal.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Printing, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.Printing.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Toolkit, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.ArcGIS.Client.Toolkit.DataSources, Version=10.2.0.0, Culture=neutral, PublicKeyToken=29c6dd6e8553d944, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\bin\ESRI.ArcGIS.Client.Toolkit.DataSources.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras.WPF4, Version=4.1.24.16313, Culture=neutral, PublicKeyToken=1673db7d5906b0ad, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\GalaSoft.MvvmLight.Extras.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.WPF4, Version=4.1.24.16313, Culture=neutral, PublicKeyToken=63eb5c012e0b3c1c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF4\GalaSoft.MvvmLight.WPF4.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Dll\log4net-1.2.13\bin\net\4.0\release\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=59d6d24383174ac4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF45\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="ProjNet, Version=1.2.3432.30659, Culture=neutral, PublicKeyToken=a1f5bdcd9c6f5740, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\arducopter\MissionPlanner\MissionPlanner-master\ExtLibs\ProjNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SlimDX, Version=4.0.13.43, Culture=neutral, PublicKeyToken=b1b0c32fd1ffe4f9, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\SlimDX SDK (January 2012)\Bin\net40\x86\SlimDX.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Laurent Bugnion (GalaSoft)\Mvvm Light Toolkit\Binaries\WPF45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Behavior\Esri.cs" />
+    <Compile Include="Behavior\FrameworkElementAdorner.cs" />
+    <Compile Include="Behavior\FrameworkElementDragBehavior.cs" />
+    <Compile Include="Behavior\FrameworkElementDropBehavior.cs" />
+    <Compile Include="Behavior\GeometryGraphicDataSource.cs" />
+    <Compile Include="Behavior\MapDrawBehavior.cs" />
+    <Compile Include="Behavior\MapGraphicItemsSourceBehavior.cs" />
+    <Compile Include="Behavior\MapItemsSourceBehavior.cs" />
+    <Compile Include="Behavior\MapSelectedItemSourceBehavior.cs" />
+    <Compile Include="Behavior\MapTileSourceBehavior.cs" />
+    <Compile Include="Behavior\MyRenderer.cs" />
+    <Compile Include="Behavior\SystemTimeBehavior.cs" />
+    <Compile Include="Controls\AttitudeInstrumentControl.xaml.cs">
+      <DependentUpon>AttitudeInstrumentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BorderDropAndDrop.cs" />
+    <Compile Include="Controls\CreateMissionControl.xaml.cs">
+      <DependentUpon>CreateMissionControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EqualiserControl.xaml.cs">
+      <DependentUpon>EqualiserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ErrorControl.xaml.cs">
+      <DependentUpon>ErrorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InstrumentControl.xaml.cs">
+      <DependentUpon>InstrumentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListErrorControl.xaml.cs">
+      <DependentUpon>ListErrorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\QuadPropertyControl.xaml.cs">
+      <DependentUpon>QuadPropertyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SignalStrength.xaml.cs">
+      <DependentUpon>SignalStrength.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VideoControl.xaml.cs">
+      <DependentUpon>VideoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\BatteryColor.cs" />
+    <Compile Include="Converter\DebugConverter.cs" />
+    <Compile Include="Converter\EnumToStringConverter.cs" />
+    <Compile Include="Converter\EqualiserColorConverter.cs" />
+    <Compile Include="Converter\GpsStatusColorConverter.cs" />
+    <Compile Include="Converter\IsCheckedToVisibilityConverter.cs" />
+    <Compile Include="Converter\MissionMavCommandConverter.cs" />
+    <Compile Include="Converter\ModeConverter.cs" />
+    <Compile Include="Converter\NumberToPolarValueConverter.cs" />
+    <Compile Include="Converter\QuadModeConverter.cs" />
+    <Compile Include="Converter\SecondToMinuteConverter.cs" />
+    <Compile Include="Converter\SelectedVehicleToArmConverter.cs" />
+    <Compile Include="Converter\SignalStrengthColorConverter.cs" />
+    <Compile Include="Converter\TrueFalseToImageConverter.cs" />
+    <Compile Include="Enums\ArmStatusEnum.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Enums\ErrorLevelEnum.cs" />
+    <Compile Include="Enums\SoftkeyEnum.cs" />
+    <Compile Include="Interface\IArduCopterMode.cs" />
+    <Compile Include="Interface\IButtonsControl.cs" />
+    <Compile Include="Interface\IClientQuadUI.cs" />
+    <Compile Include="Interface\IComm.cs" />
+    <Compile Include="Interface\IDragable.cs" />
+    <Compile Include="Interface\IDropable.cs" />
+    <Compile Include="Interface\IInstrumentControl.cs" />
+    <Compile Include="Interface\IJoystick.cs" />
+    <Compile Include="Interface\ILayerControl.cs" />
+    <Compile Include="Interface\ILeftCommandsControl.cs" />
+    <Compile Include="Interface\IListWaypoint.cs" />
+    <Compile Include="Interface\IMaintenance.cs" />
+    <Compile Include="Interface\IMap.cs" />
+    <Compile Include="Interface\IMenuViewModel.cs" />
+    <Compile Include="Interface\IQuadProperty.cs" />
+    <Compile Include="Interface\IQuadsStatus.cs" />
+    <Compile Include="Interface\IQuadVideo.cs" />
+    <Compile Include="Interface\IRightCommandsControl.cs" />
+    <Compile Include="Interface\IStatusMenuView.cs" />
+    <Compile Include="Interface\IToolAction.cs" />
+    <Compile Include="Interface\IToolActionMap.cs" />
+    <Compile Include="Interface\IToolsControl.cs" />
+    <Compile Include="Interface\IVehiclesSource.cs" />
+    <Compile Include="Messengers\ClosedWindowEventArgsMessenger.cs" />
+    <Compile Include="Messengers\MapMouseLeftButtonDownMessenger.cs" />
+    <Compile Include="Messengers\MapMouseRightButtonDownMessenger.cs" />
+    <Compile Include="Messengers\MapWaypointMessenger.cs" />
+    <Compile Include="Messengers\NewVehicleMessenger.cs" />
+    <Compile Include="Messengers\ReadMissionMessenger.cs" />
+    <Compile Include="Messengers\SelectedMissionMessenger.cs" />
+    <Compile Include="Messengers\TaskSelectedByShapeMessenger.cs" />
+    <Compile Include="Messengers\UpdataMissionMessenger.cs" />
+    <Compile Include="Messengers\VehicleSelected.cs" />
+    <Compile Include="Model\Entity.cs" />
+    <Compile Include="Model\Equaliser.cs" />
+    <Compile Include="Model\ErrorListModel.cs" />
+    <Compile Include="Model\ErrorQuad.cs" />
+    <Compile Include="Model\GuiTask.cs" />
+    <Compile Include="Model\GuiTaskNav.cs" />
+    <Compile Include="Model\JoystickModel.cs" />
+    <Compile Include="Model\QuadStatus.cs" />
+    <Compile Include="Model\GuiQuadVehicle.cs" />
+    <Compile Include="Model\Shape.cs" />
+    <Compile Include="Model\Vehicle.cs" />
+    <Compile Include="Model\VideoPresenter.cs" />
+    <Compile Include="MultimediaWindow.xaml.cs">
+      <DependentUpon>MultimediaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="QuadPropertyWindow.xaml.cs">
+      <DependentUpon>QuadPropertyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ArmButton.cs" />
+    <Compile Include="Utils\PublicConst.cs" />
+    <Compile Include="Utils\Util.cs" />
+    <Compile Include="ViewModel\ArduCopterModeViewModel.cs" />
+    <Compile Include="ViewModel\ClientQuadUIViewModel.cs" />
+    <Compile Include="ViewModel\MaintenanceViewModel.cs" />
+    <Compile Include="ViewModel\QuadPropertyViewModel.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ButtonsControlViewModel.cs" />
+    <Compile Include="ViewModel\InstrumentControlViewModel.cs" />
+    <Compile Include="ViewModel\JoystickViewModel.cs" />
+    <Compile Include="ViewModel\LayerControlViewModel.cs" />
+    <Compile Include="ViewModel\LeftCommandsControlViewModel.cs" />
+    <Compile Include="ViewModel\ListWaypointViewModel.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\MenuViewModel.cs" />
+    <Compile Include="ViewModel\MissionSource.cs" />
+    <Compile Include="ViewModel\QuadsStatusViewModel.cs" />
+    <Compile Include="ViewModel\QuadVideoViewModel.cs" />
+    <Compile Include="ViewModel\QuadToolActionViewModel.cs" />
+    <Compile Include="ViewModel\RightCommandsControlViewModel.cs" />
+    <Compile Include="ViewModel\StatusMenuControlViewModel.cs" />
+    <Compile Include="ViewModel\StatusViewModel.cs" />
+    <Compile Include="ViewModel\ToolActionMapViewModel.cs" />
+    <Compile Include="ViewModel\ToolsControlViewModel.cs" />
+    <Compile Include="ViewModel\VehiclesSource.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Controls\ArduCopterModeControl.xaml.cs">
+      <DependentUpon>ArduCopterModeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ButtonsControl.xaml.cs">
+      <DependentUpon>ButtonsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ClientQuadUI.xaml.cs">
+      <DependentUpon>ClientQuadUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EsriMapView.xaml.cs">
+      <DependentUpon>EsriMapView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\InstrumentControlPanelView.xaml.cs">
+      <DependentUpon>InstrumentControlPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\JoystickView.xaml.cs">
+      <DependentUpon>JoystickView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LayersControl.xaml.cs">
+      <DependentUpon>LayersControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LeftCommandsControlView.xaml.cs">
+      <DependentUpon>LeftCommandsControlView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListWaypointControl.xaml.cs">
+      <DependentUpon>ListWaypointControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ListWaypointView.xaml.cs">
+      <DependentUpon>ListWaypointView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MaintenanceView.xaml.cs">
+      <DependentUpon>MaintenanceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuView.xaml.cs">
+      <DependentUpon>MenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuadPropertyView.xaml.cs">
+      <DependentUpon>QuadPropertyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\QuadVideoControl.xaml.cs">
+      <DependentUpon>QuadVideoControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RightCommandsControl.xaml.cs">
+      <DependentUpon>RightCommandsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuadsStatusView.xaml.cs">
+      <DependentUpon>QuadsStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ServerQuadsUI.xaml.cs">
+      <DependentUpon>ServerQuadsUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatusMenuView.xaml.cs">
+      <DependentUpon>StatusMenuView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ToolActionMap.xaml.cs">
+      <DependentUpon>ToolActionMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ToolActionMenu.xaml.cs">
+      <DependentUpon>ToolActionMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ToolsControl.xaml.cs">
+      <DependentUpon>ToolsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ServerWindow.xaml.cs">
+      <DependentUpon>ServerWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\AttitudeInstrumentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CreateMissionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EqualiserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ErrorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\InstrumentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListErrorControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\QuadPropertyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SignalStrength.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VideoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interface\IStatus.cs" />
+    <Page Include="MultimediaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QuadPropertyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ArmToggleButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\BlackMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\EsriMapStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\KomunaStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ListViewWaypointStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TabControlStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ToggleButtonOnOffStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ToggleButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ArduCopterModeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ButtonsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ClientQuadUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EsriMapView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\InstrumentControlPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\JoystickView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LayersControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LeftCommandsControlView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListWaypointControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ListWaypointView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MaintenanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuadPropertyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\QuadVideoControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RightCommandsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuadsStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ServerQuadsUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatusMenuView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ToolActionMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ToolActionMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ToolsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ServerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include=".bin\node.cmd" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Quad.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CircularGauge\CircularGauge.csproj">
+      <Project>{6EFD5895-177B-4BBB-AF52-29F4D53B3FBD}</Project>
+      <Name>CircularGauge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{bbae5c7c-c080-49d6-a895-48cd2f12ddb7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommService\CommService.csproj">
+      <Project>{E31D68ED-149D-4A80-BBD8-D2A32870881E}</Project>
+      <Name>CommService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GStreamerManagedDll\GStreamerManagedDll.vcxproj">
+      <Project>{2290047c-e9e7-4d0d-b154-32901feb3549}</Project>
+      <Name>GStreamerManagedDll</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HwndExtensions\HwndExtensions.csproj">
+      <Project>{529fe5b9-fac5-4222-8170-c8c0b911a588}</Project>
+      <Name>HwndExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{9540E44B-9654-441D-8014-20DF990EB25D}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ManagedMavlinkMsgs\ManagedMavlinkMsgs.csproj">
+      <Project>{f025dd98-f20e-4001-88e0-9eb7a392868f}</Project>
+      <Name>ManagedMavlinkMsgs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MavlinkComm\MavlinkComm.vcxproj">
+      <Project>{4d6c884b-bb66-4c53-a831-dd4c6b732c73}</Project>
+      <Name>MavlinkComm %28Visual Studio 2010%29</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MissionComponent\MissionComponent.csproj">
+      <Project>{25DAFF44-968B-43E2-A54D-701C57242770}</Project>
+      <Name>MissionComponent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mission\MissionPackage.csproj">
+      <Project>{98501352-8D9D-4A33-BC04-B86AE291FF91}</Project>
+      <Name>MissionPackage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleComponent\VehicleComponent.csproj">
+      <Project>{91C987F3-F345-4E64-854A-C5F28766CF9B}</Project>
+      <Name>VehicleComponent</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\QuadSelected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\V.jpg" />
+    <Resource Include="Image\X.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="GCSArduino.View.LayersControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:il="clr-namespace:Microsoft.Expression.Interactivity.Layout;assembly=Microsoft.Expression.Interactions"
+             xmlns:model="clr-namespace:GCSArduino.Model"
+             xmlns:interfaces="clr-namespace:Interfaces;assembly=Interfaces"
+             xmlns:converter="clr-namespace:GCSArduino.Converter"
+             xmlns:missionPackage="clr-namespace:MissionPackage;assembly=Mission"
+             mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=LayerControlViewModel}"
+              d:DesignWidth="156" d:DesignHeight="160">
+    <UserControl.Resources>
+        <converter:IsCheckedToVisibilityConverter x:Key="IsCheckedToVisibilityConverter"></converter:IsCheckedToVisibilityConverter>
+        <Storyboard x:Key="CloseLayers">
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="border1" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="layers" Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static VerticalAlignment.Top}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="layers" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static HorizontalAlignment.Right}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="OpenLeyers_01">
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="layers" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static HorizontalAlignment.Stretch}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="layers" Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static VerticalAlignment.Stretch}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="border1" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <HierarchicalDataTemplate x:Key="ChildTasks">
+            <TextBlock Text="{Binding TaskName}"  Foreground ="WhiteSmoke"/>
+        </HierarchicalDataTemplate>
+        
+        <HierarchicalDataTemplate DataType="{x:Type model:Vehicle}" ItemsSource="{Binding Tasks}"  ItemTemplate="{StaticResource ChildTasks}">
+            <TextBlock Text="{Binding Name}"  Foreground ="WhiteSmoke"/>
+        </HierarchicalDataTemplate>
+        
+
+    </UserControl.Resources>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="minus_Copy">
+            <BeginStoryboard x:Name="CloseLayers_BeginStoryboard" Storyboard="{StaticResource CloseLayers}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="minus_Copy">
+            <BeginStoryboard x:Name="OpenLeyers_01_BeginStoryboard" Storyboard="{StaticResource OpenLeyers_01}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid x:Name="LayoutRoot" FlowDirection="RightToLeft" >
+        <Border x:Name="layers" BorderThickness="0" CornerRadius="2" d:LayoutOverrides="Height">
+            <Border.Background>
+                <SolidColorBrush Color="{DynamicResource blue01}"/>
+            </Border.Background>
+            <i:Interaction.Behaviors>
+                <il:MouseDragElementBehavior/>
+            </i:Interaction.Behaviors>
+
+            <StackPanel Margin="0" Orientation="Vertical">
+
+                <WrapPanel Margin="0,2" Height="20">
+                    <ToggleButton x:Name="minus_Copy" Margin="0,2,4,0" Style="{DynamicResource komunaMinimizeToggleButton}" ToolTip="מזער" Width="10" Height="10" Content="ToggleButton" />
+                    <TextBlock FontFamily="Verdana" FontSize="12" Foreground="White" Text="שכבות" TextWrapping="Wrap" Margin="5,0,0,0" />
+                </WrapPanel>
+
+                <Border x:Name="border1" Margin="3,1,3,3" BorderThickness="0" CornerRadius="2" Visibility="Collapsed" >
+                    <Border.Background>
+                        <SolidColorBrush Color="{DynamicResource blueBackground}"/>
+                    </Border.Background>
+                    <StackPanel Margin="4,4,0,4" >
+
+                        <!--<ListBox   ItemsSource="{Binding Tasks, Mode=TwoWay}" Margin="0"/>-->
+                        <ListBox Grid.Row="1" Background="Transparent" ItemsSource="{Binding Tasks}" SelectedItem="{Binding SelectedTask}" Visibility="{Binding ElementName=MissionList, Path=IsChecked, Converter={StaticResource IsCheckedToVisibilityConverter}}">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Foreground" Value="Black"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Black" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="Background" Value="Red" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding TaskName}" Foreground="White" Margin="5,0,0,0" FontSize="12" ></TextBlock>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <!--<Separator></Separator>
+                        <Separator></Separator>
+                        <TreeView x:Name="TreeViewArea"  ItemsSource="{Binding DataSource.Areas, Mode=TwoWay}"  Margin="0" ItemContainerStyle="{DynamicResource komunaTreeViewItemHebrew}" Background="{x:Null}" BorderBrush="{x:Null}" />
+                        <Separator></Separator>
+                        <Separator></Separator>-->
+                        <TreeView x:Name="TreeViewQuad" Visibility="{Binding ElementName=VehicleList, Path=IsChecked, Converter={StaticResource IsCheckedToVisibilityConverter}}" ItemsSource="{Binding Vehicles}"  Margin="0" ItemContainerStyle="{DynamicResource komunaTreeViewItemHebrew}" Background="{x:Null}" BorderBrush="{x:Null}" SelectedItemChanged="TreeViewQuad_OnSelectedItemChanged" VerticalAlignment="Top"/>
+
+                       
+                        <Grid Width="144" Margin="2,0,0,0">
+                            <Path Stretch="Fill" Stroke="#FF2A383F" Margin="0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                            <Path Stretch="Fill" Stroke="#FF516D7A" Margin="0,1,0,0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" Margin="7,0,0,0" VerticalAlignment="Top">
+                            <RadioButton x:Name="VehicleList"  Margin="20,0,0,0" Style="{DynamicResource komunaTextRadioBTN}" VerticalAlignment="Center" Content="כלים" IsChecked="{Binding MissionOrVehicles}"/>
+                            <RadioButton x:Name="MissionList"  Margin="0" Style="{DynamicResource komunaTextRadioBTN}" VerticalAlignment="Center" Content="משימות" d:LayoutOverrides="Width"  />
+                            <WrapPanel  Margin="50,0,0,0" VerticalAlignment="Top" ToolTip="שמור משימה">
+                                <Button x:Name="Save"  Margin="1,0,0,0" Style="{DynamicResource save}" Width="16" Height="16" Content="Button" ToolTip="שמור משימה" Command="{Binding SaveMissionCommand}" />
+                                <Button x:Name="Load"  Margin="1,0,0,0" Style="{DynamicResource OpenMissions}" Width="16" Height="16" Content="Button" ToolTip="פתח משימה"  Command="{Binding OpenMissionCommand}" />
+                            </WrapPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

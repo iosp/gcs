@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="GCSArduino.View.ClientQuadUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:wpfWindowsTest="clr-namespace:GCSArduino.Controls" xmlns:view="clr-namespace:GCSArduino.View"
+             xmlns:enums="clr-namespace:GCSArduino.Enums" xmlns:enums2="clr-namespace:Common.Enums;assembly=Common"
+             xmlns:converter="clr-namespace:GCSArduino.Converter" xmlns:model="clr-namespace:GCSArduino.Model"
+             mc:Ignorable="d"  DataContext="{Binding Source={StaticResource Locator}, Path=ClientQuadUIViewModel}"
+              xmlns:resources="clr-namespace:GCSArduino.Resources"  
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             d:DesignHeight="1000" d:DesignWidth="1024">
+    <UserControl.Resources>
+        <converter:SelectedVehicleToArmConverter x:Key="SelectedVehicleToArmConverter"></converter:SelectedVehicleToArmConverter>
+        <converter:ModeConverter x:Key="ModeConverter"></converter:ModeConverter>
+    </UserControl.Resources>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"></ColumnDefinition>
+            <ColumnDefinition Width="30*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <view:StatusMenuView  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" DataContext="{Binding VehicleSelected}"></view:StatusMenuView>
+        
+
+        <wpfWindowsTest:VideoControl Grid.Row="1" Grid.Column="1" Port="2222"></wpfWindowsTest:VideoControl>
+        <!--<wpfWindowsTest:VideoControl Grid.Row="2" Grid.Column="1" Port="0"></wpfWindowsTest:VideoControl>-->
+        <!--<Border  Grid.Row="1" Grid.Column="1" Background="Black"></Border>
+        <Border  Grid.Row="2" Grid.Column="1" Background="Black"></Border>-->
+
+        <!--<WindowsFormsHost  Name="WindowsFormsHost1"    Grid.Row="1" Grid.Column="1">
+            <wf:Panel x:Name="videoPanel1" Dock="Fill"   />
+        </WindowsFormsHost>
+        <WindowsFormsHost  Name="WindowsFormsHost2"   Grid.Row="2" Grid.Column="1" >
+            <wf:Panel x:Name="videoPanel2" Dock="Fill"   />
+        </WindowsFormsHost>-->
+        
+        <view:EsriMapView Grid.Row="1" Grid.RowSpan="2" ></view:EsriMapView>
+        
+       
+        <wpfWindowsTest:CreateMissionControl  Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Left" Margin="20"></wpfWindowsTest:CreateMissionControl>
+        
+        <wpfWindowsTest:ArduCopterModeControl  Visibility="Collapsed" Grid.Column="1"  Grid.Row="3" ></wpfWindowsTest:ArduCopterModeControl>
+        
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <wpfWindowsTest:InstrumentControl Grid.Column="0" HorizontalAlignment="Center" DataContext="{Binding VehicleSelected}" ></wpfWindowsTest:InstrumentControl>
+            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Mission" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}" Margin="5,0,20,0" Width="80"></TextBlock>
+                    <Button Grid.Row="2" Grid.Column="0" Content="Start"    Style="{DynamicResource ButtonWhiteStyle}" Command="{Binding MissionCommands}" CommandParameter="{x:Static enums:SoftkeyEnum.StartMission }"></Button>
+                    <Button Grid.Row="2" Grid.Column="1" Content="Stop"     Style="{DynamicResource ButtonWhiteStyle}" Command="{Binding MissionCommands}" CommandParameter="{x:Static enums:SoftkeyEnum.StopMission }"></Button>
+                    <Button Grid.Row="2" Grid.Column="2" Content="Restart"  Style="{DynamicResource ButtonWhiteStyle}" Command="{Binding MissionCommands}" CommandParameter="{x:Static enums:SoftkeyEnum.RestartMission }"></Button>
+                    <RadioButton Grid.Column="0" Grid.Row="0" Content="Land"    IsChecked="{Binding VehicleSelected.QuadStatus.Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums2:VehicleModeEnum.Land  } }" Command="{Binding QuadModeCommand}" CommandParameter="{x:Static enums2:VehicleModeEnum.Land   }" Style="{StaticResource ToggleButtonGreenStyle}"></RadioButton>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Mode" Visibility="Collapsed" Style="{StaticResource TextBlockStyle}" Margin="5,0,20,0" Width="80"></TextBlock>
+                <RadioButton Grid.Column="0" Grid.Row="0" Content="Auto"    IsChecked="{Binding VehicleSelected.QuadStatus.Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums2:VehicleModeEnum.Auto  } }" Command="{Binding QuadModeCommand}" CommandParameter="{x:Static enums2:VehicleModeEnum.Auto  }" Style="{StaticResource ToggleButtonGreenStyle}"></RadioButton>
+                <RadioButton Grid.Column="0" Grid.Row="0" Content="Guidede" IsChecked="{Binding VehicleSelected.QuadStatus.Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums2:VehicleModeEnum.Guided} }" Command="{Binding QuadModeCommand}" CommandParameter="{x:Static enums2:VehicleModeEnum.Guided}" Style="{StaticResource ToggleButtonGreenStyle}"></RadioButton>
+                <RadioButton Grid.Column="0" Grid.Row="0" Content="Loitere" IsChecked="{Binding VehicleSelected.QuadStatus.Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums2:VehicleModeEnum.Loiter} }" Command="{Binding QuadModeCommand}" CommandParameter="{x:Static enums2:VehicleModeEnum.Loiter}" Style="{StaticResource ToggleButtonGreenStyle}"></RadioButton>
+                <RadioButton Grid.Column="0" Grid.Row="0" Content="RTL"     IsChecked="{Binding VehicleSelected.QuadStatus.Mode, Converter={StaticResource ModeConverter}, ConverterParameter={x:Static enums2:VehicleModeEnum.RTL   } }" Command="{Binding QuadModeCommand}" CommandParameter="{x:Static enums2:VehicleModeEnum.RTL   }" Style="{StaticResource ToggleButtonGreenStyle}"></RadioButton>
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <resources:ArmToggleButton Grid.Row="0" Grid.Column="0"  ArmStatus="{Binding VehicleSelected.QuadStatus.Armed, Converter={StaticResource SelectedVehicleToArmConverter}, Mode=TwoWay}" Style="{DynamicResource ArmToggleButtonStyle}" Command="{Binding MissionCommands}" CommandParameter="{x:Static enums:SoftkeyEnum.ArmDisArm }"></resources:ArmToggleButton>
+                <ToggleButton Content="Joystick"  Grid.Column="0" Grid.Row="0"     IsChecked="{Binding IsCheckedJoystick}"  Style="{StaticResource ToggleButtonOnOffStyle}"></ToggleButton>
+                <Button Grid.Row="3" Grid.Column="0" Content="Take Off"    Style="{DynamicResource ButtonWhiteStyle}" Command="{Binding MissionCommands}" CommandParameter="{x:Static enums:SoftkeyEnum.TaskOff }"></Button>
+                <Button  Content="JRestart"  Style="{DynamicResource ButtonWhiteStyle}" Command="{Binding JoystickRestartCommands}" ></Button>
+            </StackPanel>           
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

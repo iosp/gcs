@@ -1,0 +1,30 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GCSArduino.Converter">
+
+
+    <Style x:Key="ListViewWaypointContainerStyle" TargetType="{x:Type ListViewItem}">
+        <Style.Resources>
+            <!-- Brushes omitted for clarity… -->
+            <!-- Reduces a customer's Balance to either -1, 0, or +1 -->
+            <local:NumberToPolarValueConverter x:Key="PolarValueConv" />
+        </Style.Resources>
+
+        <!-- Stretch the content so that we can right-align valuesin the Balance column. -->
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+
+        <Style.Triggers>
+            <!-- When a customer owes money, color them green. -->
+            <DataTrigger Binding="{Binding Id, Converter={StaticResource PolarValueConv}}" Value="true">
+                <Setter Property="Background" Value="DimGray" />
+                
+            </DataTrigger>
+
+            <!-- When a customer is owed money, color them red. -->
+            <DataTrigger Binding="{Binding Id, Converter={StaticResource PolarValueConv}}" Value="false">
+                <Setter Property="Background" Value="Black" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

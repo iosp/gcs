@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="GCSArduino.Controls.QuadPropertyControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Control="clr-namespace:GCSArduino.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="1" >
+            <Control:SignalStrength    />
+            <Separator/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="2">
+            <ProgressBar  Grid.Column="2" Width="50"  Height="22" Orientation="Horizontal" IsIndeterminate="False" Margin="3,0,3,0"></ProgressBar>
+            <Separator/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="3">
+            <TextBlock  Text="{Binding UsedCapacity}" Foreground="{Binding UsedCapacityColor}" Margin="3,0,3,0"></TextBlock>
+            <TextBlock  Text="mA" Foreground="{Binding UsedCapacityColor}" Margin="3,0,3,0"></TextBlock>
+            <Separator/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="4">
+            <TextBlock  Text="GPS:"  Grid.Column="7" Margin="3,0,3,0" Foreground="{Binding SatsInUseColor}"></TextBlock>
+            <TextBlock  x:Name="gps" Text="{Binding SatsInUse}" Grid.Column="8"  Foreground="{Binding SatsInUseColor}" Margin="3,0,3,0"></TextBlock>
+            <Separator/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="5">
+            <TextBlock    Text="RC:"   Grid.Column="9" Foreground="{Binding RcQualityColor}" Margin="3,0,3,0"></TextBlock>
+            <TextBlock   Text="{Binding RcQuality}"   Foreground="{Binding RcQualityColor}" Grid.Column="10"  Margin="3,0,3,0" ></TextBlock>
+            <Separator/>
+        </StackPanel>
+        
+        <Border Grid.Row="1" Grid.ColumnSpan="10" Background="Black" ></Border>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="10" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Content="Start / Stop" Height="50" Width="80" Margin="5"></Button>
+            <Button Content="Arm/Disarm" Height="50" Width="80" Margin="5"></Button>
+            <Button Content="Landing" Height="50" Width="80" Margin="5"></Button>
+            <Button Content="RTL" Height="50" Width="80" Margin="5"></Button>
+            <Button Content="Loiter" Height="50" Width="80" Margin="5"></Button>
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

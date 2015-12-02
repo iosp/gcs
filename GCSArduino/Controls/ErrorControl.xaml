@@ -1,0 +1,124 @@
+﻿<UserControl x:Class="GCSArduino.Controls.ErrorControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:GCSArduino.Converter"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:TrueFalseToImageConverter x:Key="TrueFalseToImageConverter"></converter:TrueFalseToImageConverter>
+    </UserControl.Resources>
+    <Grid>
+        <ListView Grid.Row="1" ItemsSource="{Binding Vehicles}" Background="Transparent" MaxHeight="500" FlowDirection="LeftToRight">
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                    <Setter Property="FontSize" Value="20"></Setter>
+                </Style>
+                <Style  TargetType="{x:Type ScrollBar}">
+                    <Setter Property="Height" Value="Auto"/>
+                    <Setter Property="Background" Value="Black"></Setter>
+                </Style>
+            </ListView.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Name}" Width="120"></GridViewColumn>
+                    <GridViewColumn Header="Gps" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Gps, Converter={StaticResource TrueFalseToImageConverter}}"  VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Gyro" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Gyro, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Accel" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Accel, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Compass" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Compass, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Baro" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Baro, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="OptFlow"  Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.OptFlow, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Rc" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Rc, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Battery"     Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Battery, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Hdop" Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding  QuadStatus.ErrorQuad.Hdop, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Satellites"  Width="80">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding QuadStatus.ErrorQuad.Satellites, Converter={StaticResource TrueFalseToImageConverter}}" Height="30" Width="30"></Image>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

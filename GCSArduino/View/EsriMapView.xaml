@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="GCSArduino.View.EsriMapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:behavior="clr-namespace:GCSArduino.Behavior"
+             xmlns:client="clr-namespace:ESRI.ArcGIS.Client;assembly=ESRI.ArcGIS.Client"
+             xmlns:b="clr-namespace:GCSArduino.Controls"
+
+             mc:Ignorable="d" 
+             DataContext="{Binding Source={StaticResource Locator}, Path=MapViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <b:BorderDropAndDrop>
+        <i:Interaction.Behaviors>
+            <behavior:FrameworkElementDragBehavior/>
+            <behavior:FrameworkElementDropBehavior/>
+        </i:Interaction.Behaviors>
+        <Grid >
+       
+        <client:Map UseAcceleratedDisplay="False"  WrapAround="True" IsLogoVisible="False">
+         
+            <i:Interaction.Behaviors>
+                <behavior:MapTileSourceBehavior ID="Map" Path="{Binding FilePath}" Opacity="1"/>
+                
+                <behavior:MapItemsSourceBehavior 
+                    ID="Entities" XPropertyPath="XLocation" YPropertyPath="YLocation"  HeadingPath="Heading" SelectedPropertyPath="IsSelected"
+                    Symbol="{StaticResource TestpictureMarker}"
+                    ItemsSource="{Binding EntitysItemsSource}"/>
+
+                <behavior:MapGraphicItemsSourceBehavior EditGeometryAction="{Binding EditGeometryAction, Mode=TwoWay}"
+                  ID="Shapes" Symbol="{StaticResource LineSymbol}" SymbolPropertyPath="Symbol" GeometryPropertyPath="Geometry" ShapeSelected="{Binding SelectedShape, Mode=TwoWay}"
+                  ItemsSource="{Binding ShapesItemsSource, Mode=TwoWay}" />
+
+                <behavior:MapDrawBehavior LineSymbol="{StaticResource DrawLineSymbol}" NewTaskShapeId="{Binding NewTaskShapeId, Mode=TwoWay}"
+                                           ItemsSource="{Binding ShapesItemsSource, Mode=TwoWay}"
+                                           DrawMode="{Binding DrawMode, Mode=TwoWay}"></behavior:MapDrawBehavior>
+                <behavior:MapSelectedItemSourceBehavior  XPropertyPath="XLocation" YPropertyPath="YLocation" 
+                                                         Symbol="{StaticResource QuadPictureMarkerSymbol}"
+                                                         SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"></behavior:MapSelectedItemSourceBehavior>
+                <!--LineDrawMode="{Binding IsChecked, ElementName=chk, Mode=TwoWay}"/>-->
+            </i:Interaction.Behaviors>
+        </client:Map>
+    </Grid>
+    </b:BorderDropAndDrop>
+</UserControl>

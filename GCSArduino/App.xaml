@@ -1,0 +1,28 @@
+﻿<Application x:Class="GCSArduino.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ms="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModel="clr-namespace:GCSArduino.ViewModel" ms:Ignorable="d" Startup="App_OnStartup"
+            >
+    <Application.Resources>
+         <ResourceDictionary>
+            <viewModel:ViewModelLocator x:Key="Locator" d:IsDataSorce="True"></viewModel:ViewModelLocator>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\ListViewWaypointStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\TabControlStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\EsriMapStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\ToggleButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\ButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\TextStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\ArmToggleButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\KomunaStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\BlackMenu.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources\ToggleButtonOnOffStyle.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </Application.Resources>
+</Application>
+
+    

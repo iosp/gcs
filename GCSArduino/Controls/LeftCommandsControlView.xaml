@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="GCSArduino.Controls.LeftCommandsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"    
+             d:DesignHeight="300" d:DesignWidth="300">
+    <StackPanel>
+        <RadioButton  Content="Mission"  Command="{Binding FlyCommand}" Style="{DynamicResource ToggleButtonWhiteStyle}"></RadioButton>
+        <RadioButton  Content="Mode" Command="{Binding ChangeModeCommand}" Style="{DynamicResource ToggleButtonWhiteStyle}"></RadioButton>
+        <RadioButton  Content="C"  Style="{DynamicResource ToggleButtonWhiteStyle}"></RadioButton>
+        <ToggleButton  Content="Joystick"  Style="{DynamicResource ToggleButtonWhiteStyle}" IsChecked="{Binding IsJoystickChecked}"></ToggleButton>
+    </StackPanel>
+</UserControl>

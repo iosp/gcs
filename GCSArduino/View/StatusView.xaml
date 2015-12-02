@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="GCSArduino.View.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             DataContext="{Binding Source={StaticResource Locator}, Path=StatusViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text00}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text01}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text02}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text03}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="4" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text04}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="5" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text05}"></TextBlock>
+        <TextBlock Grid.Column="0" Grid.Row="6" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text06}"></TextBlock>
+
+        <TextBlock Grid.Column="1" Grid.Row="0" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text10}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text11}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="2" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text12}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="3" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text13}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="4" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text14}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="5" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text15}"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="6" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Text16}"></TextBlock>
+
+    </Grid>
+</UserControl>

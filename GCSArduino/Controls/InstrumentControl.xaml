@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="GCSArduino.Controls.InstrumentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:circularGauge="clr-namespace:CircularGauge;assembly=CircularGauge"
+             xmlns:controls="clr-namespace:GCSArduino.Controls"
+             mc:Ignorable="d">
+            
+    <Grid Background="Black" Margin="5">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <circularGauge:CircularGaugeControl  Grid.Column="1" Grid.Row="0"
+                                        Radius="80" 
+                                        ScaleRadius="50" 
+                                        ScaleStartAngle="140" 
+                                        ScaleSweepAngle="270"
+                                                 
+                                        ScaleLabelRadius="65"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="10"
+                                        ScaleLabelForeground="White"
+                                                 
+                                        PointerLength="50" 
+                                        PointerCapRadius="35" 
+                                                 
+                                        MinValue="0" 
+                                        MaxValue="100" 
+                                        
+                                        MajorDivisionsCount="10" 
+                                        MinorDivisionsCount="5" 
+                                                 
+                                        OptimalRangeEndValue="80"
+                                        OptimalRangeStartValue="30"
+                                                 
+                                        CurrentValue="{Binding QuadStatus.PercentBattery}"
+                                        
+                                       
+                                        RangeIndicatorThickness="9"
+                                        RangeIndicatorRadius="30"
+                                                 
+                                        RangeIndicatorLightRadius="10"
+                                        RangeIndicatorLightOffset="65"
+                                                 
+                                        MajorTickSize="10,3"
+                                        MinorTickSize="3,1"
+                                        MajorTickColor="White"
+                                        MinorTickColor="LightGray"
+                                                 
+                                        GaugeBackgroundColor="Black"
+                                        PointerThickness ="10"
+                                        
+                                        DialTextOffset="40"
+                                        DialText="Battery"
+                                        DialTextColor="White"
+                                        AboveOptimalRangeColor="YellowGreen"
+                                                 OptimalRangeColor="Yellow"
+                                                 BelowOptimalRangeColor ="Red"/>
+            <circularGauge:CircularGaugeControl  Grid.Column="1" Grid.Row="1" 
+                                        Radius="80" 
+                                        ScaleRadius="70" 
+                                        ScaleStartAngle="120" 
+                                        ScaleSweepAngle="300"
+                                        
+                                        ResetPointerOnStartUp="True"
+
+                                        PointerLength="50" 
+                                        PointerCapRadius="25" 
+                                                 
+                                        MinValue="0" 
+                                        MaxValue="200" 
+                                        MajorDivisionsCount="10" 
+                                        MinorDivisionsCount="5" 
+                                                 
+                                        CurrentValue="{Binding QuadStatus.AltitudeAboveGround}"
+                                        
+                                        RangeIndicatorThickness="0"
+                                        RangeIndicatorRadius="0"
+                                                 
+                                        ScaleLabelRadius="50"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="11"
+                                        ScaleLabelForeground="White"
+                                                 
+                                        MajorTickSize="10,3"
+                                        MinorTickSize="3,1"
+                                        MajorTickColor="DarkGray"
+                                        MinorTickColor="DarkGray"
+                                        
+                                        GaugeBackgroundColor="Black"
+                                        PointerThickness ="12"
+                                        OptimalRangeStartValue="300"
+                                        OptimalRangeEndValue="700" 
+                                        DialTextOffset="35"
+                                        DialText="Altitude"
+                                        DialTextColor="White">
+
+
+            </circularGauge:CircularGaugeControl>
+            <controls:AttitudeInstrumentControl Visibility="Collapsed" Angle="{Binding Roll, Mode=TwoWay}"></controls:AttitudeInstrumentControl>
+            <circularGauge:CircularGaugeControl  Grid.Column="1" Grid.Row="1" 
+                                        Radius="80" 
+                                        ScaleRadius="70" 
+                                        ScaleStartAngle="30" 
+                                        ScaleSweepAngle="300"
+                                        ResetPointerOnStartUp="True"
+                                       
+                                        PointerLength="50" 
+                                        PointerCapRadius="25" 
+                                        MinValue="-6" 
+                                        MaxValue="6" 
+                                        MajorDivisionsCount="12" 
+                                        MinorDivisionsCount="5" 
+                                        CurrentValue="{Binding QuadStatus.Climb}"
+                                        
+                                        RangeIndicatorThickness="0"
+                                        RangeIndicatorRadius="0"
+                                        ScaleLabelRadius="60"
+                                        ScaleLabelSize="40,20"
+                                        ScaleLabelFontSize="11"
+                                        ScaleLabelForeground="White"
+                                        MajorTickSize="10,3"
+                                        MinorTickSize="3,1"
+                                        MajorTickColor="DarkGray"
+                                        MinorTickColor="DarkGray"
+                                        
+                                        GaugeBackgroundColor="Black"
+                                        PointerThickness ="12"
+                                        OptimalRangeStartValue="-10"
+                                        OptimalRangeEndValue="10" 
+                                        DialTextOffset="30"
+                                        DialText="Vertical Speed"
+                                        DialTextColor="White">
+
+            </circularGauge:CircularGaugeControl>
+            
+        </StackPanel>
+
+    </Grid>
+</UserControl>

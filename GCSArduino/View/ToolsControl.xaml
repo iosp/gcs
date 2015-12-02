@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="GCSArduino.View.ToolsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:il="clr-namespace:Microsoft.Expression.Interactivity.Layout;assembly=Microsoft.Expression.Interactions"
+              DataContext="{Binding Source={StaticResource Locator}, Path=ToolsControlViewModel}"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <Storyboard x:Key="closeToolBox">
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="tools" Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static VerticalAlignment.Top}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="tools" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static HorizontalAlignment.Right}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="openToolBox">
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="border" Storyboard.TargetProperty="(UIElement.Visibility)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="tools" Storyboard.TargetProperty="(FrameworkElement.HorizontalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static HorizontalAlignment.Stretch}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="tools" Storyboard.TargetProperty="(FrameworkElement.VerticalAlignment)">
+                <DiscreteObjectKeyFrame KeyTime="00:00:00.1000000" Value="{x:Static VerticalAlignment.Stretch}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="ToggleButton.Unchecked" SourceName="minus">
+            <BeginStoryboard x:Name="closeToolBox_BeginStoryboard" Storyboard="{StaticResource closeToolBox}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ToggleButton.Checked" SourceName="minus">
+            <BeginStoryboard x:Name="openToolBox_BeginStoryboard" Storyboard="{StaticResource openToolBox}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid x:Name="LayoutRoot">
+        <Border x:Name="tools" Margin="0,0,0,-0.001" Background="#FF516D7A" BorderThickness="0" CornerRadius="2" >
+            <i:Interaction.Behaviors>
+                <il:MouseDragElementBehavior/>
+            </i:Interaction.Behaviors>
+            <StackPanel Margin="0" Orientation="Vertical">
+                <WrapPanel HorizontalAlignment="Right" Margin="0,2">
+                    <TextBlock Margin="5,0" FontFamily="Verdana" FontSize="12" Foreground="White" Text="כלים" TextWrapping="Wrap"/>
+                    <ToggleButton Margin="0,2,0,0" Style="{DynamicResource KomunaPinToggleButton}" ToolTip="נעץ במקום" Width="10" Height="10" Content="ToggleButton"/>
+                    <ToggleButton x:Name="minus" Margin="0,2,4,0" Style="{DynamicResource komunaMinimizeToggleButton}" ToolTip="מזער" Width="10" Height="10" Content="ToggleButton"/>
+                </WrapPanel>
+                <Border x:Name="border" Margin="3,0,3,3" Background="#FF374A53" BorderThickness="0" CornerRadius="2" Visibility="Collapsed">
+                    <StackPanel Margin="4,4,0,4" RenderTransformOrigin="0.5,0.5">
+                        <WrapPanel x:Name="map_controlers" HorizontalAlignment="Right" Margin="0,2,3,2">
+                            <CheckBox x:Name="LOS" HorizontalAlignment="Right" Margin="0" Style="{DynamicResource LOS}" VerticalAlignment="Center" Width="24" Height="24" Content="CheckBox" ToolTip="LOS" Command="{Binding CommandLos}" IsChecked="{Binding LosIsChecked}"/>
+                            <CheckBox x:Name="ormap" HorizontalAlignment="Right" Margin="0" Style="{DynamicResource OrianMap}" VerticalAlignment="Center" Width="24" Height="24" Content="CheckBox" ToolTip="מפת אוריינטציה" IsChecked="{Binding OrmapIsChecked}"/>
+                            <CheckBox x:Name="raster" HorizontalAlignment="Right" Margin="0,0,25,0" Style="{DynamicResource RasterOnMap}" VerticalAlignment="Center" Width="25" Height="25" Content="CheckBox" ToolTip="שכבת תמונות" Command="{Binding CommandRasterOnMap}" IsChecked="{Binding RasterIsChecked}"/>
+                            <Grid x:Name="brt_Copy" VerticalAlignment="Top" Width="50" Height="23" Margin="0,0,11,0">
+                                <Slider Style="{DynamicResource MapBrightnessSlider}" x:Name="MapBrightnessSlide2" HorizontalAlignment="Left" Width="50" Height="Auto" LargeChange="5" ToolTip="בהירות מפה" Maximum="32" Minimum="-32"  SmallChange="1" TickPlacement="Both" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" Value="{Binding BrightnessValue, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </WrapPanel>
+                        <Grid HorizontalAlignment="Center" Width="161">
+                            <Path Stretch="Fill" Stroke="#FF2A383F" Margin="0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                            <Path Stretch="Fill" Stroke="#FF516D7A" Margin="0,1,0,0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                        </Grid>
+                        <WrapPanel HorizontalAlignment="Right" Margin="0,2,3,2" VerticalAlignment="Top" Orientation="Horizontal">
+                            <RadioButton x:Name="zoomToAll" HorizontalAlignment="Right" Margin="0" Style="{DynamicResource ZoomToAllRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="הצג הכל" Command="{Binding CommandZoomOut}" IsChecked="{Binding ZoomToAllIsChecked}"/>
+                            <RadioButton x:Name="ZoomOut" HorizontalAlignment="Right" Margin="0" Style="{DynamicResource ZoomOutRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="הקטן תצוגה" Command="{Binding CommandZoomOut}" IsChecked="{Binding ZoomOutIsChecked}"/>
+                            <RadioButton x:Name="ZoomIn" HorizontalAlignment="Right" Margin="0,0,18,0" Style="{DynamicResource ZoomInRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="הגדל תצוגה" Command="{Binding CommandZoomIn}"  IsChecked="{Binding ZoomInIsChecked}"/>
+                            <Grid x:Name="zoomSLD_Copy" Width="51.334" Margin="0,0,18,0" Height="23">
+                                <Slider Style="{DynamicResource SpringZoom}" x:Name="MapZoomSlide2" Height="Auto" TickFrequency="1"  Minimum ="0" Maximum="100"   ToolTip="הגדלה/הקטנה" Width="50" BorderBrush="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0" Value="{Binding ZoomSlider, UpdateSourceTrigger=PropertyChanged}" />
+                            </Grid>
+                        </WrapPanel>
+                        <Grid HorizontalAlignment="Center" Width="161">
+                            <Path Stretch="Fill" Stroke="#FF2A383F" Margin="0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                            <Path Stretch="Fill" Stroke="#FF516D7A" Margin="0,1,0,0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                        </Grid>
+                        <WrapPanel HorizontalAlignment="Right" Margin="0,2,3,2">
+                            <RadioButton x:Name="Hand" HorizontalAlignment="Right" Margin="0" Style="{DynamicResource PanRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="הזז מפה" Command="{Binding          CommandHand}"  IsChecked="{Binding HandIsChecked}"/>
+                            <RadioButton x:Name="Ruler" HorizontalAlignment="Right" Margin="0" Style="{DynamicResource RulerRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="מדוד מרחק"  Command="{Binding    CommandRuler}" IsChecked="{Binding RulerIsChecked}"/>
+                            <Grid x:Name="unit_Copy2" Margin="0,0,8,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <ComboBox IsSynchronizedWithCurrentItem="True" Foreground="#FFFFFFFF" HorizontalAlignment="Left" x:Name="CoordinateSys2" Style="{DynamicResource UMTcombo01}" IsDropDownOpen="False" ToolTip="קנ&quot;מ" Margin="0" FontSize="12" FontFamily="Verdana">
+                                    <ComboBoxItem Background="{x:Null}" Foreground="#FFFFFFFF" x:Name="UTM2" Content="1:50K" Style="{DynamicResource UMTcomboBoxItem01}" FontFamily="Verdana"/>
+                                    <ComboBoxItem Background="{x:Null}" Foreground="#FFFFFFFF" x:Name="GEO2" Content="1:10K" Style="{DynamicResource UMTcomboBoxItem01}" FontFamily="Verdana" IsSelected="True"/>
+                                </ComboBox>
+                            </Grid>
+                            <Grid x:Name="unit_Copy3" Margin="0,0,5,0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <ComboBox IsSynchronizedWithCurrentItem="True" Foreground="#FFFFFFFF" HorizontalAlignment="Left" x:Name="CoordinateSys3" Style="{DynamicResource UMTcombo01}" IsDropDownOpen="False" ToolTip="סוג נ.צ" Margin="0" FontSize="12" FontFamily="Verdana">
+                                    <ComboBoxItem Background="{x:Null}" Foreground="#FFFFFFFF" x:Name="UTM3" Content="UTM" Style="{DynamicResource UMTcomboBoxItem01}" FontFamily="Verdana"/>
+                                    <ComboBoxItem Background="{x:Null}" Foreground="#FFFFFFFF" x:Name="GEO3" Content="GEO" Style="{DynamicResource UMTcomboBoxItem01}" FontFamily="Verdana" IsSelected="True"/>
+                                </ComboBox>
+                            </Grid>
+                        </WrapPanel>
+                        <Grid HorizontalAlignment="Center" Width="161">
+                            <Path Stretch="Fill" Stroke="#FF2A383F" Margin="0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                            <Path Stretch="Fill" Stroke="#FF516D7A" Margin="0,1,0,0" VerticalAlignment="Top" Height="1" Data="M93.239833,14.84 L3.5729967,14.84"/>
+                        </Grid>
+                        <WrapPanel HorizontalAlignment="Right" Margin="0,2,3,0">
+                            <RadioButton x:Name="Rect"  HorizontalAlignment="Right" Margin="0,0,1,0" Style="{DynamicResource RectRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton"  Command="{Binding CommandPaint}" CommandParameter="Rect" IsChecked="{Binding RectIsChecked}"/>
+                            <RadioButton x:Name="Circle"  HorizontalAlignment="Right" Margin="0,0,1,0" Style="{DynamicResource CircleRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton"  Command="{Binding CommandPaint}" CommandParameter="Circle" IsChecked="{Binding CircleIsChecked}"/>
+                            <RadioButton x:Name="Area"  HorizontalAlignment="Right" Margin="0,0,1,0" Style="{DynamicResource HotAreaRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="פוליגון סגור" Command="{Binding CommandPaint}" CommandParameter="Area" IsChecked="{Binding AreaIsChecked}"/>
+                            <RadioButton x:Name="Polyline" HorizontalAlignment="Right" Margin="0,0,1,0" Style="{DynamicResource PolilineRadioButton}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="פוליגון פתוח" Command="{Binding CommandPaint}" CommandParameter="Polyline" IsChecked="{Binding PolylineIsChecked}"/>
+                            <RadioButton x:Name="Point"  HorizontalAlignment="Right" Margin="0,0,6,0" Style="{DynamicResource RadioButtonPoint}" VerticalAlignment="Center" Width="25" Height="25" Content="RadioButton" ToolTip="נקודת עניין" Command="{Binding CommandPaint}" CommandParameter="Point" IsChecked="{Binding PointIsChecked}" />
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

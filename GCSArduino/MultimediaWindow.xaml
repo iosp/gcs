@@ -1,0 +1,34 @@
+﻿<Window x:Class="GCSArduino.MultimediaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        Title="MultimediaWindow" Height="300" Width="300" WindowState="Maximized">
+    <Grid x:Name="MultimediaGrid" ShowGridLines="True" Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"></RowDefinition>
+            <RowDefinition Height="50*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+            <ColumnDefinition Width="50*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--<TextBlock  Text="0,0" Grid.Row="0" Grid.Column="0" ></TextBlock>
+        <TextBlock  Text="0,1" Grid.Row="0" Grid.Column="1" ></TextBlock>
+        <TextBlock  Text="1,0" Grid.Row="1" Grid.Column="0" ></TextBlock>
+        <TextBlock  Text="1,1" Grid.Row="1" Grid.Column="1" ></TextBlock>-->
+        
+        <WindowsFormsHost Grid.Row="0" Grid.Column="0"  >
+            <wf:Panel/>
+        </WindowsFormsHost>
+        <WindowsFormsHost Grid.Row="0" Grid.Column="1" >
+            <wf:Panel/>
+        </WindowsFormsHost>
+        <WindowsFormsHost Grid.Row="1" Grid.Column="0" >
+            <wf:Panel/>
+        </WindowsFormsHost>
+        <WindowsFormsHost Grid.Row="1" Grid.Column="1">
+            <wf:Panel/>
+        </WindowsFormsHost>
+    </Grid>
+</Window>

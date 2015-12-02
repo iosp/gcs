@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="GCSArduino.View.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" DataContext="{Binding Source={StaticResource Locator}, Path=MenuViewModel}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+      
+    </UserControl.Resources>
+    <Grid>
+        <Menu IsMainMenu="True" FlowDirection="LeftToRight"  Foreground="WhiteSmoke" Background="Black">
+            <MenuItem Header="_File"   >
+                <MenuItem Header="_New..." Command="{Binding FileMenuCommand}"  CommandParameter="New"/>
+                <Separator />
+                <MenuItem Header="_Open..." Command="{Binding FileMenuCommand}"  CommandParameter="Open" />
+                <Separator />
+                <MenuItem Header="Load Mission" Command="{Binding   LoadMissionMenuCommand}"  CommandParameter="Load"></MenuItem>
+                <MenuItem Header="Delete Mission" Command="{Binding DeleteMissionMenuCommand}"  CommandParameter="Delete"></MenuItem>
+                <Separator />
+                <MenuItem Header="_Save" Command="{Binding FileMenuCommand}"  CommandParameter="Save"/>
+                <MenuItem Header="_Save As..." Command="{Binding FileMenuCommand}"  CommandParameter="SaveAs"/>
+                <Separator />
+                <MenuItem Header="_Exit" Command="{Binding FileMenuCommand}"  CommandParameter="Exit"/>
+
+            </MenuItem>
+            <MenuItem Header="_Edit"  >
+                <MenuItem Header="xxx"  >
+                </MenuItem>
+                <MenuItem Header="yyy">
+                </MenuItem>
+                <MenuItem Header="zzz">
+                </MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="_View"    />
+            <MenuItem Header="_Tools"    >
+                <MenuItem Header="Camera" Command="{Binding ToolsMenuCommand}"  CommandParameter="Camera" IsCheckable="False" IsChecked="{Binding CameraVisibillit}"/>
+            </MenuItem>
+            <MenuItem Header="_Window"  Style="{DynamicResource BlackMenu}">
+                <MenuItem Header="Windows Camera"  Command="{Binding WindowMenuOpenCamerasCommand}" IsChecked="{Binding IsOpenCameraWindows}"/>
+                <MenuItem Header="Quad Property"  Command="{Binding WindowMenuOpenQuadPropertyCommand}" IsChecked="{Binding IsOpenCameraWindows}"/>
+                
+            </MenuItem>
+                    <MenuItem Header="_Help"    />
+
+        </Menu>
+    </Grid>
+</UserControl>

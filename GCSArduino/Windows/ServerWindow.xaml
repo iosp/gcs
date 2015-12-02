@@ -1,0 +1,8 @@
+﻿<Window x:Class="GCSArduino.Windows.ServerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:view="clr-namespace:GCSArduino.View"
+        Title="ServerWindow" WindowState="Maximized">
+    <Grid>
+        <view:ServerQuadsUI></view:ServerQuadsUI>
+    </Grid>
+</Window>

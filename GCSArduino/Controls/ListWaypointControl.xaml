@@ -1,0 +1,121 @@
+﻿<UserControl x:Class="GCSArduino.View.ListWaypointControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:enums="clr-namespace:GCSArduino.Enums"
+             xmlns:mmavLink="clr-namespace:MMAVLink;assembly=ManagedMavlinkMsgs"
+             xmlns:converter="clr-namespace:GCSArduino.Converter"
+             xmlns:client="clr-namespace:ESRI.ArcGIS.Client;assembly=ESRI.ArcGIS.Client"
+
+
+             mc:Ignorable="d" 
+            
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <converter:SecondToMinuteConverter x:Key="SecondToMinuteConverter"></converter:SecondToMinuteConverter>
+        <converter:MissionMavCommandConverter x:Key="MissionMavCommandConverter"/>
+        <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}" x:Key="MavCmd">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:MissionMavCmd" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Visibility="Collapsed">  
+            <!--<Button Content="Line" Height="30" Width="40"   Command="{Binding DrawModeCommand}" CommandParameter="{x:Static  client:DrawMode.Polyline}"></Button>
+            <Button Content="Rect" Height="30" Width="40"   Command="{Binding DrawModeCommand}" CommandParameter="{x:Static  client:DrawMode.Polygon}"></Button>
+            <Button Content="Ellipse" Height="30" Width="40" Command="{Binding DrawModeCommand}" CommandParameter="{x:Static client:DrawMode.Ellipse}"></Button>
+            <Button Content="+" Height="30" Width="40"></Button>
+            <Button Content="-" Height="30" Width="40"></Button>-->
+            <Button Content="Del" Height="30" Width="40" Command="{Binding DeleteWaypointCommand}"></Button>
+            <Button Content="V" Height="30" Width="40"></Button>
+            <Button Content="V" Height="30" Width="40"></Button>
+        </StackPanel>
+        <ListView Grid.Row="1" ItemsSource="{Binding TaskNav.NavPath}" Background="Transparent" SelectedItem="{Binding SelectedWaypoint,  Mode=TwoWay}" FlowDirection="LeftToRight">
+            <ListView.Resources>
+                <Style TargetType="{x:Type GridViewColumnHeader}">
+                    <Setter Property="Background" Value="Black" />
+                    <Setter Property="Foreground" Value="WhiteSmoke" />
+                    <Setter Property="FontSize" Value="20"></Setter>
+                </Style>
+                <Style  TargetType="{x:Type ScrollBar}">
+                    <Setter Property="Height" Value="Auto"/>
+                    <Setter Property="Background" Value="Black"></Setter>
+                </Style>
+            </ListView.Resources>
+            <ListBox.ItemContainerStyle>
+            <Style TargetType="ListBoxItem">
+                <Setter Property="Foreground" Value="White"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="Black" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"></GridViewColumn>
+                    <GridViewColumn Width="120" Header="Command" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox 
+                                      ItemsSource="{Binding Source={StaticResource MavCmd}}"
+                                      x:Name="ComboBox"
+                                      Height="Auto"  Width="100" MinWidth="100"
+                                    
+                                      SelectedValue="{Binding Command, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MissionMavCommandConverter}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Latitude" DisplayMemberBinding="{Binding Latitude,StringFormat={}{0:0.######} }"></GridViewColumn>
+                    <GridViewColumn Header="Longitude" DisplayMemberBinding="{Binding Longitude, StringFormat={}{0:0.######} }"></GridViewColumn>
+                    <GridViewColumn Header="Altitude" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Altitude}" Width="50"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Time" >
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Param1}" Width="50"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Param2">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Param2}" Width="50"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Param3">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Param3}" Width="50"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Yaw">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Param4}" Width="50"></TextBox>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+                </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

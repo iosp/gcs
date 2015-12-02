@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="GCSArduino.Controls.AttitudeInstrumentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid  Width="200" 
+          Height="200" x:Name="LayoutRoot" >
+            <Ellipse  x:Name="OuterEllipse" StrokeThickness="16"  Margin="0" Stretch="UniformToFill">
+                <Ellipse.Stroke>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF636060" Offset="1"/>
+                        <GradientStop Color="#FF5F5C5C" Offset="0"/>
+                        <GradientStop Color="#FFEEDEDE" Offset="0.35"/>
+                        <GradientStop Color="#FFA09595" Offset="0.705"/>
+                    </LinearGradientBrush>
+                </Ellipse.Stroke>
+                <Ellipse.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="#FF79D1EC"/>
+                        <GradientStop Color="#FF6E3A07" Offset="0.977"/>
+                        <GradientStop Color="#FFF0ECEA" Offset="0.497"/>
+                        <GradientStop Color="#FFA7886B" Offset="0.534"/>
+                        <GradientStop Color="#FF8B623B" Offset="0.658"/>
+                        <GradientStop Color="#FF7D4F22" Offset="0.768"/>
+                    </LinearGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <Rectangle Height="15" Width="150"  Fill="Black" Opacity="0.5"  RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <RotateTransform x:Name="AnimatedRotateTransform" Angle="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=Angle}"></RotateTransform>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+        </Grid>
+    </Grid>
+</UserControl>

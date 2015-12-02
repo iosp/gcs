@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="GCSArduino.View.QuadVideoControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converter="clr-namespace:GCSArduino.Converter"
+             xmlns:Control="clr-namespace:GCSArduino.Controls" xmlns:enums="clr-namespace:GCSArduino.Enums"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:adorner="clr-namespace:HwndExtensions.Adorner;assembly=HwndExtensions"
+             xmlns:model="clr-namespace:GCSArduino.Model"
+             mc:Ignorable="d" >
+    <UserControl.Resources>
+        <converter:GpsStatusColorConverter x:Key="GpsStatusColorConverter"></converter:GpsStatusColorConverter>
+        <converter:BatteryColorConverter x:Key="BatteryColorConverter"></converter:BatteryColorConverter>
+        <converter:EnumToStringConverter x:Key="EnumToStringConverter"></converter:EnumToStringConverter>
+        <converter:DebugConverter x:Key="DebugConverter"></converter:DebugConverter>
+        <converter:QuadModeConverter x:Key="QuadModeConverter"></converter:QuadModeConverter>
+        <converter:MissionMavCommandConverter x:Key="MissionMavCommandConverter"/>
+        <ObjectDataProvider MethodName="GetValues"
+        ObjectType="{x:Type sys:Enum}" x:Key="MavCmd">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:MissionMavCmd" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <converter:SelectedVehicleToArmConverter x:Key="SelectedVehicleToArmConverter"></converter:SelectedVehicleToArmConverter>
+        <converter:ModeConverter x:Key="ModeConverter"></converter:ModeConverter>
+    </UserControl.Resources>
+    <Grid >
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <adorner:HwndAdornerManager  Grid.Column="0" Width="640" Height="480" RenderTransformOrigin="0.5,0.5" >
+            <Grid Margin="2,565,-2,-565">
+                <model:VideoPresenter>
+                    <model:VideoPresenter.Adornment>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Row="0" Grid.ColumnSpan="3" Grid.Column="0" ShowGridLines="True" >
+                                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight"  HorizontalAlignment="Left" >
+                                    <Control:SignalStrength DataContext="{Binding VehicleSelected.QuadStatus, Mode=TwoWay}"  Margin="3,0,3,0"></Control:SignalStrength>
+                                    <TextBlock Text="{Binding VehicleSelected.QuadStatus.GpsStatus, Converter={StaticResource EnumToStringConverter}, Mode=TwoWay}" MaxWidth="60" MinWidth="60" Foreground="{Binding VehicleSelected.QuadStatus.GpsStatus, Converter={StaticResource GpsStatusColorConverter},Mode=TwoWay}" Style="{StaticResource MenuSizeText}" Grid.Column="2"  Margin="3,0,30,0"></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.QuadStatus.Mode, Converter={StaticResource QuadModeConverter}}" Width="100" Style="{StaticResource MenuSizeText}"></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" HorizontalAlignment="Right" >
+                                    <TextBlock Text="{Binding DateTime, StringFormat={}{0:HH:mm:ss}}" MaxWidth="100" MinWidth="100" Style="{StaticResource MenuSizeText}" Margin="3,0,3,0"></TextBlock>
+                                    <ProgressBar  DataContext="{Binding Source={StaticResource Locator}, Path=VehiclesSource}" Value="{Binding VehicleSelected.QuadStatus.PercentBattery, Mode=TwoWay}"  Width="100"  Orientation="Horizontal" IsIndeterminate="False" Margin="3,0,3,0"></ProgressBar>
+                                    <TextBlock Text="V" Style="{StaticResource MenuSizeText}"  Foreground="{Binding VehicleSelected.QuadStatus.BatteryVoltage, Converter={StaticResource  BatteryColorConverter},Mode=TwoWay}" Margin="3,0,3,0"></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.QuadStatus.BatteryVoltage, Mode=TwoWay}" Width="60"  Background="Transparent" Foreground="{Binding VehicleSelected.QuadStatus.BatteryVoltage, Converter={StaticResource  BatteryColorConverter}}" Style="{StaticResource MenuSizeText}" Margin="3,0,3,0"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                            
+                            <TextBlock Text="{Binding  VehicleSelected.Heading, StringFormat={}{0:0.}}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Center"  Style="{StaticResource TextBlockStyle}"></TextBlock>
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="3">
+                                <TextBlock Text="{Binding VehicleSelected.DistanceFromTarget, Mode=TwoWay}" Style="{StaticResource MenuSizeText}" Background="Transparent"></TextBlock>
+                                <TextBlock Text="-" Style="{StaticResource MenuSizeText}" Background="Transparent"></TextBlock>
+                                <TextBlock Text="{Binding VehicleSelected.NextWaypoint, Mode=TwoWay}" Style="{StaticResource MenuSizeText}" Background="Transparent"></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="3">
+                                <TextBlock Text="{Binding VehicleSelected.DistanceFromTarget, Mode=TwoWay}" Style="{StaticResource MenuSizeText}" Background="Transparent"></TextBlock>
+                                <TextBlock Text="-" Style="{StaticResource MenuSizeText}" Background="Transparent"></TextBlock>
+                                <TextBlock Text="{Binding VehicleSelected.NextWaypoint, Mode=TwoWay}" Style="{StaticResource MenuSizeText}" Background="Transparent"></TextBlock>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Column="3" Grid.Row="2" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Right">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Roll: "  Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.Roll, StringFormat={}{0:0.##}}"  Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Pitch: " Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.Pitch, StringFormat={}{0:0.##}}"  Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Yaw: " Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.Heading, StringFormat={}{0:0.##}}"  Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel  Grid.Column="0" Grid.Row="2" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Lat: "  Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.Latitude, StringFormat={}{0:0.####}}"  Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Lon: " Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.Longitude, StringFormat={}{0:0.####}}" Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Alt: " Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                    <TextBlock Text="{Binding VehicleSelected.Altitude, StringFormat={}{0:0.##}}" Style="{StaticResource TextBlockStyle}" ></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                            
+                            <Rectangle Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="0" Grid.RowSpan="5" RenderTransformOrigin="0.5,0.5" Height="15" Width="200" Stretch="Fill" Fill="White" Opacity="0.5">
+                                <Rectangle.RenderTransform>
+                                    <RotateTransform x:Name="AnimatedRotateTransform" Angle="{Binding VehicleSelected.Roll, Mode=TwoWay}"></RotateTransform>
+                                </Rectangle.RenderTransform>
+                            </Rectangle>
+
+                        </Grid>
+                     </model:VideoPresenter.Adornment>
+                </model:VideoPresenter>
+            </Grid>
+        </adorner:HwndAdornerManager> -->
+    </Grid>
+</UserControl>
